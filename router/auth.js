@@ -52,10 +52,6 @@ router.post("/login", async (req, res, next) => {
 
     const user = await User.findOne({
       where: { email },
-      include: {
-        model: Trip,
-        include: { model: Post, include: { model: Picture } },
-      },
     });
     if (!user || !bcrypt.compareSync(password, user.password)) {
       return res.status(400).send({
