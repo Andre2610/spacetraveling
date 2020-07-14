@@ -7,9 +7,13 @@ const User = require("../models").user;
 const router = new Router();
 
 router.post("/signup", async (req, res) => {
-  const { email, password, firstName, lastName, title, about } = req.body.data;
+  //   const { email, password, firstName, lastName } = req.body.data;
+  const { email, password, firstName, lastName } = req.body;
+  console.log("my body", req.body);
   if (!email || !password || !firstName || !lastName) {
-    return res.status(400).send("Please provide an email, password and a name");
+    return res
+      .status(400)
+      .send("Please provide an email, password, your first and last name");
   }
 
   try {
@@ -18,8 +22,6 @@ router.post("/signup", async (req, res) => {
       lastName,
       email,
       password: bcrypt.hashSync(password, SALT_ROUNDS),
-      title,
-      about,
     });
     delete newUser.dataValues["password"]; // don't send back the password hash
 
