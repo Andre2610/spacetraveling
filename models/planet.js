@@ -11,11 +11,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
+      imageUrl: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {}
   );
   planet.associate = function (models) {
     // associations can be defined here
+    planet.belongsTo(models.trip);
   };
   return planet;
 };

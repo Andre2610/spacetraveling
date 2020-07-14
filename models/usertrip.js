@@ -28,6 +28,8 @@ module.exports = (sequelize, DataTypes) => {
   );
   usertrip.associate = function (models) {
     // associations can be defined here
+    usertrip.belongsTo(models.user);
+    usertrip.belongsTo(models.trip);
   };
   return usertrip;
 };
