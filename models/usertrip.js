@@ -1,6 +1,6 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  const trip = sequelize.define(
+  const usertrip = sequelize.define(
     "trip",
     {
       userId: {
@@ -26,8 +26,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
-  trip.associate = function (models) {
+  usertrip.associate = function (models) {
     // associations can be defined here
   };
-  return trip;
+  return usertrip;
 };
