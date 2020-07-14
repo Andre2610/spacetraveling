@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      departingTime: {
+      departingDate: {
         type: Sequelize.STRING,
         allowNull: false,
       },

@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const trip = sequelize.define(
     "trip",
     {
-      departingTime: {
+      departingDate: {
         type: DataTypes.STRING,
         allowNull: false,
       },
