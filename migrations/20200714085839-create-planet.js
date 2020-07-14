@@ -10,12 +10,14 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       distance: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       imageUrl: {
-        type: DataTypes.STRING,
+        type: Sequelize.TEXT,
         allowNull: false,
       },
       createdAt: {
