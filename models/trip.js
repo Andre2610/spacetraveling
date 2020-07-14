@@ -1,21 +1,21 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  const payment = sequelize.define(
-    "payment",
+  const trip = sequelize.define(
+    "trip",
     {
-      cardNumber: {
-        type: DataTypes.INTEGER,
+      departingTime: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
-      securityCode: {
+      price: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
     },
     {}
   );
-  payment.associate = function (models) {
+  trip.associate = function (models) {
     // associations can be defined here
   };
-  return payment;
+  return trip;
 };
