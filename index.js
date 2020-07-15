@@ -11,7 +11,6 @@ const userRouter = require("./router/user");
 const stripeRouter = require("./router/stripe");
 //TODO: add a stripe key
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
-const uuid = require("uuid");
 
 //middleware
 app.use(cors());
