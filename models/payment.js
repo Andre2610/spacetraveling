@@ -3,15 +3,19 @@ module.exports = (sequelize, DataTypes) => {
   const payment = sequelize.define(
     "payment",
     {
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       cardNumber: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      securityCode: {
+      amount: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      userId: {
+      bookingId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -20,7 +24,6 @@ module.exports = (sequelize, DataTypes) => {
   );
   payment.associate = function (models) {
     // associations can be defined here
-    payment.belongsTo(models.user);
   };
   return payment;
 };
