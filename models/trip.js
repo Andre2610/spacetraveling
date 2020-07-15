@@ -3,7 +3,15 @@ module.exports = (sequelize, DataTypes) => {
   const trip = sequelize.define(
     "trip",
     {
-      departingDate: {
+      origin: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      destination: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      distance: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -11,8 +19,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      planetId: {
-        type: DataTypes.INTEGER,
+      departingDate: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      arrivalDate: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
     },
