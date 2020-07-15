@@ -1,49 +1,57 @@
 const { Router } = require("express");
-const { toJWT } = require("../auth/jwt");
+const { toJWT, emailToken, validatingEmail } = require("../auth/jwt");
 const authMiddleware = require("../auth/middleware");
+const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt");
-const { SALT_ROUNDS } = require("../config/constants");
+const {
+  SALT_ROUNDS,
+  API_URL,
+  BACKEND_API,
+  AUTH_USER,
+  AUTH_PASS,
+} = require("../config/constants");
+const jwt = require("../auth/jwt");
 const User = require("../models").user;
 
 const router = new Router();
 
-router.post("/signup", async (req, res) => {
-  //   const { email, password, firstName, lastName } = req.body.data;
-  const { email, password, firstName, lastName } = req.body;
-  console.log("my body", req.body);
-  if (!email || !password || !firstName || !lastName) {
-    return res
-      .status(400)
-      .send("Please provide an email, password, your first and last name");
-  }
+// router.post("/signup", async (req, res) => {
+//   const { email, password, firstName, lastName } = req.body.signUpcredentials;
+//   console.log("my body", req.body);
+//   if (!email || !password || !firstName || !lastName) {
+//     return res
+//       .status(400)
+//       .send("Please provide an email, password, your first and last name");
+//   }
 
-  try {
-    const newUser = await User.create({
-      firstName,
-      lastName,
-      email,
-      password: bcrypt.hashSync(password, SALT_ROUNDS),
-    });
-    delete newUser.dataValues["password"]; // don't send back the password hash
+//   try {
+//     const newUser = await User.create({
+//       firstName,
+//       lastName,
+//       email,
+//       password: bcrypt.hashSync(password, SALT_ROUNDS),
+//       verified: false,
+//     });
+//     delete newUser.dataValues["password"]; // don't send back the password hash
 
-    const token = toJWT({ userId: newUser.id });
+//     const token = toJWT({ userId: newUser.id });
 
-    res.status(201).json({ token, ...newUser.dataValues });
-  } catch (error) {
-    if (error.name === "SequelizeUniqueConstraintError") {
-      return res
-        .status(400)
-        .send({ message: "There is an existing account with this email" });
-    }
+//     res.status(201).json({ token, ...newUser.dataValues });
+//   } catch (error) {
+//     if (error.name === "SequelizeUniqueConstraintError") {
+//       return res
+//         .status(400)
+//         .send({ message: "There is an existing account with this email" });
+//     }
 
-    return res.status(400).send({ message: "Something went wrong, sorry" });
-  }
-});
+//     return res.status(400).send({ message: "Something went wrong, sorry" });
+//   }
+// });
 
 router.post("/login", async (req, res, next) => {
   // login logic
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body.credentials;
     if (!email || !password || email === " " || password === " ") {
       res
         .status(400)
@@ -54,7 +62,7 @@ router.post("/login", async (req, res, next) => {
       where: { email },
     });
     if (!user || !bcrypt.compareSync(password, user.password)) {
-      return res.status(400).send({
+      return res.status(403).send({
         message: "User with that email not found or password incorrect",
       });
     }
@@ -71,6 +79,88 @@ router.get("/me", authMiddleware, async (req, res) => {
   // don't send back the password hash
   delete req.user.dataValues["password"];
   res.status(200).send({ ...req.user.dataValues });
+});
+
+router.post("/signup", async (req, res) => {
+  const { email, password, firstName, lastName } = req.body.signUpcredentials;
+  //   const { email, password, firstName, lastName } = req.body;
+  if (!email || !password || !firstName || !lastName) {
+    return res
+      .status(400)
+      .send("Please provide an email, password, your first and last name");
+  }
+
+  try {
+    const newUser = await User.create({
+      firstName,
+      lastName,
+      email,
+      password: bcrypt.hashSync(password, SALT_ROUNDS),
+      verified: false,
+    });
+
+    const eToken = emailToken({ id: newUser.id });
+    const url = `${BACKEND_API}/auth/confirmation/${eToken}`;
+
+    const transporter = nodemailer.createTransport({
+      host: "smtp.ethereal.email",
+      port: 587,
+      auth: {
+        user: `${AUTH_USER}`,
+        pass: `${AUTH_PASS}`,
+      },
+    });
+
+    const confirmationEmailTemplate = {
+      from: `${AUTH_USER}`, // sender address
+      to: `${email}`, // list of receivers
+      subject: `Hello, ${firstName}`, // Subject line
+      text: `Thank you for registering an account with space travel agency. 
+      Please confirm your email by clicking the following link:${url}`, // plain text body
+      html: `<h2>Thank you for registering an account with space travel agency.</h2>
+      <p>Please confirm your email by clicking the following link:<a href=${url}>${url}</a></p>`, // html body
+    };
+
+    transporter.sendMail(confirmationEmailTemplate, function (err, data) {
+      if (err) {
+        console.log("Error Occurs");
+      } else {
+        console.log("Email sent!!!");
+      }
+    });
+
+    // delete newUser.dataValues["password"]; // don't send back the password hash
+
+    // const token = toJWT({ userId: newUser.id });
+
+    // res.status(201).json({ token, ...newUser.dataValues });
+    res.status(201).json("it worked");
+  } catch (error) {
+    if (error.name === "SequelizeUniqueConstraintError") {
+      return res
+        .status(400)
+        .send({ message: "There is an existing account with this email" });
+    }
+
+    return res.status(400).send({ message: "Something went wrong, sorry" });
+  }
+});
+
+router.get("/confirmation/:token", async (req, res) => {
+  try {
+    console.log("do I get here?");
+    const { id } = validatingEmail(req.params.token);
+    console.log("my verified data", id);
+    const updatedUser = await User.update(
+      { verified: true },
+      { where: { id } }
+    );
+    console.log("final user", updatedUser);
+  } catch (e) {
+    res.send("error");
+  }
+
+  return res.redirect("http://localhost:3000");
 });
 
 module.exports = router;
