@@ -8,12 +8,28 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      departingDate: {
-        type: Sequelize.STRING,
+      origin: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      destination: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      distance: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
       price: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      departingDate: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      arrivalDate: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
       createdAt: {
