@@ -4,11 +4,23 @@ module.exports = (sequelize, DataTypes) => {
     "trip",
     {
       origin: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
+        references: {
+          model: "planets",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
         allowNull: false,
       },
       destination: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
+        references: {
+          model: "planets",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
         allowNull: false,
       },
       distance: {
@@ -33,10 +45,7 @@ module.exports = (sequelize, DataTypes) => {
   trip.associate = function (models) {
     // associations can be defined here
     trip.hasOne(models.planet);
-    trip.belongsToMany(models.user, {
-      through: "usertrips",
-      foreignKey: "tripId",
-    });
+    trip.hasMany(models.booking);
   };
   return trip;
 };

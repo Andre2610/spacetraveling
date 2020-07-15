@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   payment.associate = function (models) {
     // associations can be defined here
+    payment.hasOne(models.booking);
   };
   return payment;
 };

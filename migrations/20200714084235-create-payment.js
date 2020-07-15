@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       email: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       cardNumber: {
@@ -17,11 +17,11 @@ module.exports = {
         allowNull: false,
       },
       amount: {
-        type: DataTypes.FLOAT,
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
       bookingId: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       createdAt: {

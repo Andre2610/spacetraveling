@@ -8,16 +8,8 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      origin: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      destination: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       distance: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       price: {
@@ -29,7 +21,7 @@ module.exports = {
         allowNull: false,
       },
       arrivalDate: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       createdAt: {
