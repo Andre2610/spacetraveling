@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      planetId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
     {}
   );
