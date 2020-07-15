@@ -17,4 +17,17 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/all", async (req, res, next) => {
+  try {
+    const getAll = await Trip.findAll({ include: Planet });
+    if (!getAll) {
+      res.status(404).send("shit not found");
+    } else {
+      res.status(200).send(getAll);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 module.exports = router;

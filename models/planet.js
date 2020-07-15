@@ -8,8 +8,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       distance: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
+      },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: true,
       },
       imageUrl: {
         type: DataTypes.TEXT,
@@ -18,9 +22,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
-  planet.associate = function (models) {
-    // associations can be defined here
-    planet.hasMany(models.trip);
-  };
+  // planet.associate = function (models) {
+  //   // associations can be defined here
+  //   planet.belongsTo(models.trip);
+  // };
   return planet;
 };

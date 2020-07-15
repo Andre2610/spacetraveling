@@ -13,8 +13,12 @@ module.exports = {
         allowNull: false,
       },
       distance: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
         allowNull: false,
+      },
+      description: {
+        type: Sequelize.TEXT,
+        allowNull: true,
       },
       imageUrl: {
         type: Sequelize.TEXT,

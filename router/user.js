@@ -1,15 +1,17 @@
 const { Router } = require("express");
+const Trip = require("../models").trip;
 const Planet = require("../models").planet;
+const User = require("../models").user;
 
 const router = new Router();
 
 router.get("/", async (req, res, next) => {
   try {
-    const getPlanet = await Planet.findAll();
-    if (!getPlanet) {
-      res.status(404).send("planet not found");
+    const allUsers = await User.findAll();
+    if (!allUsers) {
+      res.status(404).send("User not found");
     } else {
-      res.status(200).send(getPlanet);
+      res.json(allUsers);
     }
   } catch (e) {
     next(e);

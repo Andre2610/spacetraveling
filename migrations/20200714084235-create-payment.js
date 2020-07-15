@@ -8,11 +8,19 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      email: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       cardNumber: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      securityCode: {
+      amount: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+      },
+      bookingId: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },

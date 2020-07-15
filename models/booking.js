@@ -1,7 +1,7 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  const usertrip = sequelize.define(
-    "usertrip",
+  const booking = sequelize.define(
+    "booking",
     {
       userId: {
         type: DataTypes.INTEGER,
@@ -23,13 +23,24 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         allowNull: false,
       },
+      paymentId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "payments",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+        allowNull: false,
+      },
     },
     {}
   );
-  usertrip.associate = function (models) {
+  booking.associate = function (models) {
     // associations can be defined here
-    usertrip.belongsTo(models.user);
-    usertrip.belongsTo(models.trip);
+    booking.belongsTo(models.user);
+    booking.belongsTo(models.trip);
+    booking.belongsTo(models.payment);
   };
-  return usertrip;
+  return booking;
 };
