@@ -8,9 +8,15 @@ const authRouter = require("./router/auth");
 const planetRouter = require("./router/planet");
 const tripsRouter = require("./router/trips");
 const userRouter = require("./router/user");
+//TODO: add a stripe key
+const stripe = require("stripe")(process.env.STRIPE_SECRET);
+const uuid = require("uuid");
 
+//middleware
 app.use(cors());
 app.use(jsonParser);
+
+//router
 app.use("/auth", authRouter);
 app.use("/trips", tripsRouter);
 app.use("/planet", planetRouter);
