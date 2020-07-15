@@ -3,17 +3,17 @@ module.exports = (sequelize, DataTypes) => {
   const trip = sequelize.define(
     "trip",
     {
-      origin: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: "planets",
-          key: "id",
-        },
-        // onUpdate: "CASCADE",
-        // onDelete: "CASCADE",
-        allowNull: false,
-      },
-      destination: {
+      // origin: {
+      //   type: DataTypes.INTEGER,
+      //   references: {
+      //     model: "planets",
+      //     key: "id",
+      //   },
+      //   onUpdate: "CASCADE",
+      //   onDelete: "SET NULL",
+      //   allowNull: false,
+      // },
+      planetId: {
         type: DataTypes.INTEGER,
         references: {
           model: "planets",
@@ -33,24 +33,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      arrivalDate: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
+      // arrivalDate: {
+      //   type: DataTypes.STRING,
+      //   allowNull: false,
+      // },
     },
     {}
   );
   trip.associate = function (models) {
     // associations can be defined here
-    // trip.belongsTo(models.planet, {
-    //   targetKey: "destination",
-    //   foreignKey: "destinationId",
-    // }); //Team.hasOne(Game, { as: 'HomeTeam', foreignKey: 'homeTeamId' });
-
-    // trip.belongsTo(models.planet, {
-    //   //  as: "origin",d
-    //   foreignKey: "originId",
-    // }); ////Team.hasOne(Game, { as: 'AwayTeam', foreignKey: 'awayTeamId' });
+    trip.belongsTo(models.planet);
     trip.hasMany(models.booking);
   };
   return trip;

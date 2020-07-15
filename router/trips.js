@@ -18,8 +18,12 @@ router.get("/", async (req, res, next) => {
 });
 
 router.get("/all", async (req, res, next) => {
+  console.log("whats in trip model", Trip);
+  console.log("Whats in the planet model", Planet);
   try {
-    const getAll = await Trip.findAll({ include: Planet });
+    const getAll = await Trip.findAll({
+      include: Planet,
+    });
     if (!getAll) {
       res.status(404).send("shit not found");
     } else {
