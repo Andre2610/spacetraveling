@@ -51,6 +51,7 @@ module.exports = (sequelize, DataTypes) => {
     //   //  as: "origin",d
     //   foreignKey: "originId",
     // }); ////Team.hasOne(Game, { as: 'AwayTeam', foreignKey: 'awayTeamId' });
+    trip.hasMany(models.planet, { foreignKey: "planetId" });
     trip.hasMany(models.booking);
   };
   return trip;
