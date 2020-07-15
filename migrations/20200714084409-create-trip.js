@@ -20,10 +20,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      arrivalDate: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
+      // arrivalDate: {
+      //   type: Sequelize.STRING,
+      //   allowNull: false,
+      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
