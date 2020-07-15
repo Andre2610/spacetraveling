@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   planet.associate = function (models) {
     // associations can be defined here
-    planet.belongsTo(models.trip);
+    planet.hasMany(models.trip);
   };
   return planet;
 };
