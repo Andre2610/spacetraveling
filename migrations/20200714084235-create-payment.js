@@ -17,7 +17,7 @@ module.exports = {
         allowNull: false,
       },
       amount: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
       bookingId: {

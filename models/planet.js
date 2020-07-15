@@ -8,8 +8,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       distance: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
+      },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: true,
       },
       imageUrl: {
         type: DataTypes.TEXT,
