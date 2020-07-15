@@ -22,9 +22,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
-  // planet.associate = function (models) {
-  //   // associations can be defined here
-  //   planet.belongsTo(models.trip);
-  // };
+  planet.associate = function (models) {
+    // associations can be defined here
+    planet.hasOne(models.trip);
+  };
   return planet;
 };
