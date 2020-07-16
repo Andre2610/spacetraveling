@@ -38,22 +38,12 @@ router.post("/", async (req, res, next) => {
       tripId: tripId,
       userId: userId,
     });
-    // res.send(newBooking);
 
     return res.status(200).json({ confirmation: "purchace was success" });
   } catch (e) {
     console.log(e);
   }
 
-  // try {
-  //   const newBooking = await Booking.create({
-  //     tripId: tripId,
-  //     userId: userId,
-  //   });
-  //   res.send(newBooking);
-  // } catch (e) {
-  //   console.log(e);
-  // }
   //nodemailer email with ticket
   //
 });
