@@ -7,6 +7,8 @@ const stripe = new Stripe(
 const Booking = require("../models").booking;
 const nodemailer = require("nodemailer");
 
+const { AUTH_USER, AUTH_PASS } = require("../config/constants");
+
 router.post("/", async (req, res, next) => {
   const {
     id,
@@ -43,9 +45,37 @@ router.post("/", async (req, res, next) => {
 
     //nodemailer
     const transporter = nodemailer.createTransport({
-      host: "ducttape.inc@outlook.com",
-      port: 465,
-      secure: true,
+      host: "smtp.ethereal.email",
+      port: 587,
+      auth: {
+        user: `${AUTH_USER}`,
+        pass: `${AUTH_PASS}`,
+      },
+    });
+    console.log("WHATS FROM USER", AUTH_USER);
+    console.log("WHAT IS TO USER", email);
+    const confirmationAndticketEmailTemplate = {
+      from: `${AUTH_USER}`,
+      to: `${email}`,
+      subject: `Space Travel inc. payment confirmation and boarding pass`,
+      text: `Dear valued customer, thank you for choosing Space Travel inc as your off-planet spaceline.
+      ...`,
+      html: `<h2>Dear valued customer, thank you for choosing Space Travel inc as your off-planet spaceline</h2>
+      <p>...</p>`,
+    };
+    console.log(
+      "WAHT IS CONFIRMATIONANDTICKETEMAIL",
+      confirmationAndticketEmailTemplate
+    );
+    transporter.sendMail(confirmationAndticketEmailTemplate, function (
+      err,
+      data
+    ) {
+      if (err) {
+        console.log("error Occurs");
+      } else {
+        console.log("email send!");
+      }
     });
 
     return res.status(200).json({ confirmation: "purchace was success" });
