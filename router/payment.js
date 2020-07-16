@@ -4,6 +4,7 @@ const router = new Router();
 const stripe = new Stripe(
   "sk_test_51H4q6NJAyfM1fq6szjaKaKt6HxhxR8m0tFOdmWHoJIltNPx9W7A1uktKLwwMK5p1jAFRagf3BffwK8fg28aoNEDv00QdAI2UTz"
 );
+const Booking = require("../models").booking;
 
 router.post("/", async (req, res, next) => {
   const {
@@ -34,7 +35,10 @@ router.post("/", async (req, res, next) => {
 
     // todo:
     // populate the booking table
-    //- it has the userId / tripID -> get this via the dispatch call in front-end
+    const newBooking = await Booking.create({
+      tripId: tripId,
+    });
+    res.status(200).send(newBooking);
     //nodemailer email with ticket
     //
 
