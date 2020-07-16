@@ -9,7 +9,7 @@ module.exports = {
           name: "Mercury",
           distance: 103256,
           description:
-            "A very toxic planet that does not have any rings, just like you!",
+            "A very toxic planet, very toxic beaches & very toxic atmosphere. Claim your 10% discount now! ",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -33,7 +33,7 @@ module.exports = {
           name: "Jupiter",
           distance: 619256,
           description:
-            "The Great Red Spot in its surfice is a huge storm that has raged for at least 350 years, bring chocolate.",
+            "The Great Red Spot in its surfice is a huge storm that has raged for at least 350 years. Bring chocolate.",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
