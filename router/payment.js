@@ -5,6 +5,8 @@ const stripe = new Stripe(
   "sk_test_51H4q6NJAyfM1fq6szjaKaKt6HxhxR8m0tFOdmWHoJIltNPx9W7A1uktKLwwMK5p1jAFRagf3BffwK8fg28aoNEDv00QdAI2UTz"
 );
 const Booking = require("../models").booking;
+const nodemailer = require("nodemailer");
+
 router.post("/", async (req, res, next) => {
   const {
     id,
@@ -37,6 +39,13 @@ router.post("/", async (req, res, next) => {
     const newBooking = await Booking.create({
       tripId: tripId,
       userId: userId,
+    });
+
+    //nodemailer
+    const transporter = nodemailer.createTransport({
+      host: "ducttape.inc@outlook.com",
+      port: 465,
+      secure: true,
     });
 
     return res.status(200).json({ confirmation: "purchace was success" });
