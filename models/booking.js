@@ -30,7 +30,6 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     booking.belongsTo(models.user);
     booking.belongsTo(models.trip);
-    booking.belongsTo(models.payment);
   };
   return booking;
 };

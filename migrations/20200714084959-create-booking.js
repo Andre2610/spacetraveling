@@ -28,16 +28,6 @@ module.exports = {
         onDelete: "CASCADE",
         allowNull: false,
       },
-      paymentId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "payments",
-          key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-        allowNull: false,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
