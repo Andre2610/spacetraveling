@@ -11,7 +11,6 @@ router.post("/", async (req, res, next) => {
   const { product, token } = req.body;
   console.log("what is my PRODUCT", product);
   console.log("what is my PRICE", product.price);
-  const idempotencyKey = uuid();
 
   return stripe.customers
     .create({
@@ -19,16 +18,13 @@ router.post("/", async (req, res, next) => {
       source: token.id,
     })
     .then((customer) => {
-      stripe.charge.create(
-        {
-          amount: product.price * 100,
-          currency: "usd",
-          customer: customer.id,
-          receipt_email: token.email,
-          description: `purchase of ${product.name}`,
-        },
-        { idempotencyKey }
-      );
+      stripe.charge.create({
+        amount: product.price * 100,
+        currency: "usd",
+        customer: customer.id,
+        receipt_email: token.email,
+        description: `purchase of ${product.name}`,
+      });
     })
     .then((result) => res.status(200).send(result))
     .catch((err) => console.log(err));
