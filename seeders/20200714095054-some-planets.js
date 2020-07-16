@@ -9,7 +9,7 @@ module.exports = {
           name: "Mercury",
           distance: 103256,
           description:
-            "The planet that is toxic for your skin and sebs favorite! please edit me! I am a poor description :(",
+            "A very toxic planet that does not have any rings, just like you!",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -17,7 +17,7 @@ module.exports = {
           name: "Venus",
           distance: 71708,
           description:
-            "known to throw very heavy tempers once a month - advise using chocolate icecream and korean drama series untill tempers are over",
+            "At one point it was thought this planet might have been a tropical paradise, but now it's just HOT.",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -25,14 +25,15 @@ module.exports = {
           name: "Mars",
           distance: 110573,
           description:
-            "A fierce competitor of the distant planet Twixus-maximus, the two planet empires have been at war since the dawn of mankind - go mars!",
+            "Home to the tallest mountain in the solar system, some say it's compensating...",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           name: "Jupiter",
           distance: 619256,
-          description: "a less impressive version of Saturn",
+          description:
+            "The Great Red Spot in its surfice is a huge storm that has raged for at least 350 years, bring chocolate.",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -41,7 +42,7 @@ module.exports = {
           distance: 1346593,
 
           description:
-            "the king among planets! it has a top-notch Spa - amazing sushi and some of the most invigorating spanish paelia",
+            "The king among planets! It has a top-notch Spa - Amazing sushi and some of the most invigorating Spanish Paella, of course they're all toxic",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -49,7 +50,7 @@ module.exports = {
           name: "Uranus",
           distance: 3004248,
           description:
-            "widely known for its corny yet highly effective jokes - pretty cool planet has around 200 mega-solar magnatic storms a day",
+            "Uranus turns on its axis once every 17 hours. Uranus has two sets of very thin dark coloured rings. We send rockets to Uranus",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -57,7 +58,7 @@ module.exports = {
           name: "Neptune",
           distance: 4395927,
           description:
-            "the waterplanet named after the God, this planet has the biggest waterbody in our solar system. travelers going to this planet are urged to read the 'how to swim for dummys' booklet while traveling to their destination ",
+            "Despite being smaller than Uranus, Neptune has a greater mass. #ChonkyPlanet",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -65,7 +66,7 @@ module.exports = {
           name: "Pluto",
           distance: 49452,
           description:
-            "Long before it was demoted to the status of a dwarf planet, Pluto stood out in many regards.",
+            "Pluto sometimes has an atmosphere, mostly when nobody mentions it got demoted to a Dwarf Planet",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
