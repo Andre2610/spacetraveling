@@ -16,22 +16,12 @@ module.exports = {
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
-        allowNull: false,
+        allowNull: true,
       },
       tripId: {
         type: Sequelize.INTEGER,
         references: {
           model: "trips",
-          key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-        allowNull: false,
-      },
-      paymentId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "payments",
           key: "id",
         },
         onUpdate: "CASCADE",

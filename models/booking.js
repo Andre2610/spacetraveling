@@ -11,22 +11,12 @@ module.exports = (sequelize, DataTypes) => {
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
-        allowNull: false,
+        allowNull: true,
       },
       tripId: {
         type: DataTypes.INTEGER,
         references: {
           model: "trips",
-          key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-        allowNull: false,
-      },
-      paymentId: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: "payments",
           key: "id",
         },
         onUpdate: "CASCADE",
@@ -40,7 +30,6 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     booking.belongsTo(models.user);
     booking.belongsTo(models.trip);
-    booking.belongsTo(models.payment);
   };
   return booking;
 };
