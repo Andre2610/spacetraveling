@@ -8,9 +8,7 @@ const authRouter = require("./router/auth");
 const planetRouter = require("./router/planet");
 const tripsRouter = require("./router/trips");
 const userRouter = require("./router/user");
-const stripeRouter = require("./router/stripe");
-//TODO: add a stripe key
-const stripe = require("stripe")(process.env.STRIPE_SECRET);
+const paymentRouter = require("./router/payment");
 
 //middleware
 app.use(cors());
@@ -20,7 +18,7 @@ app.use(jsonParser);
 app.use("/auth", authRouter);
 app.use("/trips", tripsRouter);
 app.use("/planet", planetRouter);
-app.use("/payment", stripeRouter);
+app.use("/checkout", paymentRouter);
 
 //test route
 app.use("/user", userRouter);
