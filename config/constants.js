@@ -7,4 +7,5 @@ module.exports = {
   BACKEND_API: process.env.BACKEND_API,
   AUTH_USER: process.env.AUTH_USER,
   AUTH_PASS: process.env.AUTH_PASS,
+  STRIPE_KEY: process.env.STRIPE_KEY,
 };

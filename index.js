@@ -8,12 +8,17 @@ const authRouter = require("./router/auth");
 const planetRouter = require("./router/planet");
 const tripsRouter = require("./router/trips");
 const userRouter = require("./router/user");
+const paymentRouter = require("./router/payment");
 
+//middleware
 app.use(cors());
 app.use(jsonParser);
+
+//router
 app.use("/auth", authRouter);
 app.use("/trips", tripsRouter);
 app.use("/planet", planetRouter);
+app.use("/checkout", paymentRouter);
 
 //test route
 app.use("/user", userRouter);
