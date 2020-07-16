@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
-        allowNull: false,
+        allowNull: true,
       },
       tripId: {
         type: DataTypes.INTEGER,
