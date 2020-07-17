@@ -12,5 +12,3 @@ module.exports = {
   AUTH_PASS_OUTLOOK: process.env.AUTH_PASS_OUTLOOK,
   ISADMINCODE: process.env.ISADMINCODE,
 };
-
-// a small change somewhere
