@@ -10,4 +10,5 @@ module.exports = {
   STRIPE_KEY: process.env.STRIPE_KEY,
   AUTH_USER_OUTLOOK: process.env.AUTH_USER_OUTLOOK,
   AUTH_PASS_OUTLOOK: process.env.AUTH_PASS_OUTLOOK,
+  ISADMINCODE: process.env.ISADMINCODE,
 };

@@ -52,8 +52,6 @@ router.post("/", async (req, res, next) => {
         pass: `${AUTH_PASS}`,
       },
     });
-    console.log("WHATS FROM USER", AUTH_USER);
-    console.log("WHAT IS TO USER", email);
     const confirmationAndticketEmailTemplate = {
       from: `${AUTH_USER}`,
       to: `${email}`,
