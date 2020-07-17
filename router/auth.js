@@ -66,6 +66,12 @@ router.post("/login", async (req, res, next) => {
         message: "User with that email not found or password incorrect",
       });
     }
+    if (!user.verified) {
+      return res.status(403).send({
+        message:
+          "You must verify your account before logging in. Please check your email.",
+      });
+    }
 
     delete user.dataValues["password"]; // don't send back the password hash
     const token = toJWT({ userId: user.id });
