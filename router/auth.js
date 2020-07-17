@@ -9,44 +9,12 @@ const {
   BACKEND_API,
   AUTH_USER,
   AUTH_PASS,
+  ISADMINCODE,
 } = require("../config/constants");
 const jwt = require("../auth/jwt");
 const User = require("../models").user;
 
 const router = new Router();
-
-// router.post("/signup", async (req, res) => {
-//   const { email, password, firstName, lastName } = req.body.signUpcredentials;
-//   console.log("my body", req.body);
-//   if (!email || !password || !firstName || !lastName) {
-//     return res
-//       .status(400)
-//       .send("Please provide an email, password, your first and last name");
-//   }
-
-//   try {
-//     const newUser = await User.create({
-//       firstName,
-//       lastName,
-//       email,
-//       password: bcrypt.hashSync(password, SALT_ROUNDS),
-//       verified: false,
-//     });
-//     delete newUser.dataValues["password"]; // don't send back the password hash
-
-//     const token = toJWT({ userId: newUser.id });
-
-//     res.status(201).json({ token, ...newUser.dataValues });
-//   } catch (error) {
-//     if (error.name === "SequelizeUniqueConstraintError") {
-//       return res
-//         .status(400)
-//         .send({ message: "There is an existing account with this email" });
-//     }
-
-//     return res.status(400).send({ message: "Something went wrong, sorry" });
-//   }
-// });
 
 router.post("/login", async (req, res, next) => {
   // login logic
@@ -96,6 +64,10 @@ router.post("/signup", async (req, res) => {
       .send("Please provide an email, password, your first and last name");
   }
 
+  if (isAdmin && isAdminCode !== ISADMINCODE) {
+    return res.status(400).send("Not allowed to create an admin account");
+  }
+
   try {
     const newUser = await User.create({
       firstName,
@@ -103,6 +75,7 @@ router.post("/signup", async (req, res) => {
       email,
       password: bcrypt.hashSync(password, SALT_ROUNDS),
       verified: false,
+      isAdmin,
     });
 
     const eToken = emailToken({ id: newUser.id });
@@ -135,11 +108,6 @@ router.post("/signup", async (req, res) => {
       }
     });
 
-    // delete newUser.dataValues["password"]; // don't send back the password hash
-
-    // const token = toJWT({ userId: newUser.id });
-
-    // res.status(201).json({ token, ...newUser.dataValues });
     res.status(201).json("it worked");
   } catch (error) {
     if (error.name === "SequelizeUniqueConstraintError") {
