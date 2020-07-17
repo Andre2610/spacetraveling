@@ -56,16 +56,24 @@ router.get("/me", authMiddleware, async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  const { email, password, firstName, lastName } = req.body.signUpcredentials;
+  const {
+    email,
+    password,
+    firstName,
+    lastName,
+    isAdmin,
+    isAdminCode,
+  } = req.body.signUpcredentials;
   //   const { email, password, firstName, lastName } = req.body;
   if (!email || !password || !firstName || !lastName) {
     return res
       .status(400)
       .send("Please provide an email, password, your first and last name");
   }
-
+  console.log("my credentials", req.body.signUpcredentials);
   if (isAdmin && isAdminCode !== ISADMINCODE) {
-    return res.status(400).send("Not allowed to create an admin account");
+    console.log("got in here?");
+    return res.status(400).json("Not allowed to create an admin account");
   }
 
   try {
