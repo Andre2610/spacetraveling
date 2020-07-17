@@ -19,6 +19,7 @@ router.post("/", async (req, res, next) => {
     email,
     userId,
     cardholder,
+    travelClass,
   } = req.body;
   if (!id || !amount) {
     res.status(402).send("missing parameters!");
@@ -42,6 +43,15 @@ router.post("/", async (req, res, next) => {
       tripId: tripId,
       userId: userId,
     });
+
+    // first Name
+    // last Name
+    // add bookingId
+    // User
+    // Travel Class
+    // Origin = Earth
+    // Destination = dynamic
+    // Date of departure
 
     //nodemailer
     const transporter = nodemailer.createTransport({
