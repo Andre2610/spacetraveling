@@ -1,1 +1,1 @@
-release: bash postRelease.sh
+release: sh postRelease.sh
