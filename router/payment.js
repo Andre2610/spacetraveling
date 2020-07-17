@@ -27,7 +27,6 @@ router.post("/", async (req, res, next) => {
     res.status(402).send("missing parameters!");
   }
 
-  console.log("WHAT IS THIS planetNAME:", planetName);
   try {
     const payment = await stripe.paymentIntents.create({
       amount,
@@ -39,8 +38,6 @@ router.post("/", async (req, res, next) => {
       receipt_email: email,
     });
 
-    console.log(payment);
-
     // populate the booking table
     const newBooking = await Booking.create({
       tripId: tripId,
@@ -50,7 +47,6 @@ router.post("/", async (req, res, next) => {
     const getBookingId = await Booking.findOne({
       where: { id: newBooking.id },
     });
-    console.log("WHAT IS MY BOOKINGID?:", getBookingId);
 
     //nodemailer
     const transporter = nodemailer.createTransport({
@@ -112,13 +108,13 @@ router.post("/", async (req, res, next) => {
       >
       <tr>
       <td align="left" bgcolor="#ffffff" style="padding: 0 0 0 0;">
-        <img src="./header.png" alt="Header" style="display: block;" />
+        <img src="https://cdn.discordapp.com/attachments/718425463059513374/733652425617178634/header.png" alt="Header" style="display: block;" />
       </td>
     </tr>
     <tr>
       <td height="40px" style="display: block; padding: 5px 5px 5px 20px;">
         <h3 style="font-family: 'Lato', sans-serif;">
-          Booking ID: <span style="color: #aa0d00;">${getBookingId}</span>
+          Booking ID: <span style="color: #aa0d00;">${getBookingId.id}</span>
         </h3>
       </td>
       <td height="40px" style="display: block; padding: 5px 5px 5px 20px;">
@@ -176,7 +172,7 @@ router.post("/", async (req, res, next) => {
           padding: 20px 20px 20px 20px;
         "
       >
-        <img src="./qrcode.png" alt="Header" style="display: block;" />
+        <img src="https://cdn.discordapp.com/attachments/718425463059513374/733652429395984444/qrcode.png" alt="Header" style="display: block;" />
       </td>
     </tr>
     <tr>
