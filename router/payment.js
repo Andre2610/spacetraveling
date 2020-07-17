@@ -20,6 +20,8 @@ router.post("/", async (req, res, next) => {
     cardholder,
     userId,
     travelClass,
+    firstName,
+    lastName,
   } = req.body;
   if (!id || !amount) {
     res.status(402).send("missing parameters!");
@@ -73,20 +75,123 @@ router.post("/", async (req, res, next) => {
       IMPORTANT:Please bring a printed copy of this document to the check-in as it functions as your BOARDING PASS.
       `,
       html: `
-      <div>
-      <img src="https://cdn.discordapp.com/attachments/718425463059513374/733635534924021760/bannermail.png"/>
-      </div>
-      <h3>BOOKING CONFIRMATION:</h3> <h2>Dear valued customer, thank you for choosing Space Travel inc as your off-planet spaceline</h2>
+
+      <div   
+        style="
+          padding: 5px 5px 5px 5px"
+          border="0"
+          width="600"
+      >
+      <img src="https://cdn.discordapp.com/attachments/718425463059513374/733635534924021760/bannermail.png" width="100%"/>
+      
+      <h2>Dear valued customer, thank you for choosing Space Travel inc as your off-planet spaceline</h2>
       <p>
       This is your booking confirmation for ${planetName} and your <Strong>Boardingpass</Strong>.
-      <br/>
+      </p>
+      <p>
       Your flight to ${planetName} departs on ${departingDate}.
-      <br/>
+      </p>
+      <p>
       You have chosen for ${travelClass} seating, should you wish to upgrade - please visit <a href='www.google.com'>Upgrade-Seating</a>
       </p>
       <h3>IMPORTANT:</h3>
       <p>Please bring a printed copy of this document to the check-in as it functions as youre <strong>Boarding Pass</strong></p>
-
+      
+      </div>
+      <table
+      style="
+        padding: 5px 5px 5px 5px;
+        border: 2px solid #aa0d00;
+        border-radius: 5px;
+      "
+      align="center"
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      width="600"
+      >
+      <tr>
+      <td align="left" bgcolor="#ffffff" style="padding: 0 0 0 0;">
+        <img src="./header.png" alt="Header" style="display: block;" />
+      </td>
+    </tr>
+    <tr>
+      <td height="40px" style="display: block; padding: 5px 5px 5px 20px;">
+        <h3 style="font-family: 'Lato', sans-serif;">
+          Booking ID: <span style="color: #aa0d00;">${getBookingId}</span>
+        </h3>
+      </td>
+      <td height="40px" style="display: block; padding: 5px 5px 5px 20px;">
+        <h3 style="font-family: 'Lato', sans-serif;">
+          Class: <span style="color: #aa0d00;">${travelClass}</span>
+        </h3>
+      </td>
+    </tr>
+    <tr>
+      <td height="40px" style="display: block; padding: 5px 5px 10px 20px;">
+        <h3 style="font-family: 'Lato', sans-serif;">
+          Name: <span style="color: #aa0d00;">${firstName}</span>
+        </h3>
+      </td>
+      <td height="40px" style="display: block; padding: 5px 5px 10px 20px;">
+        <h3 style="font-family: 'Lato', sans-serif;">
+          Lastname: <span style="color: #aa0d00;"> ${lastName}</span>
+        </h3>
+      </td>
+    </tr>
+    <tr>
+      <td height="40px" style="display: block; padding: 5px 5px 10px 20px;">
+        <h3 style="font-family: 'Lato', sans-serif;">
+          Origin: <span style="color: #aa0d00;">Earth</span>
+        </h3>
+      </td>
+      <td height="40px" style="display: block; padding: 5px 5px 10px 20px;">
+        <h3 style="font-family: 'Lato', sans-serif;">
+          Destination: <span style="color: #aa0d00;">${planetName}</span>
+        </h3>
+      </td>
+    </tr>
+    <tr>
+      <td height="40px" style="display: block; padding: 5px 5px 10px 20px;">
+        <h3 style="font-family: 'Lato', sans-serif;">
+          Date of departure:
+          <span style="color: #aa0d00;">${departingDate}</span>
+        </h3>
+      </td>
+    </tr>
+    <tr
+      height="10px"
+      style="margin: 20px 0 0 0; display: block; background-color: #aa0d00;"
+    >
+      <td></td>
+    </tr>
+    <tr align="center">
+      <td
+        align="center"
+        width="300px"
+        style="
+          background-color: rgb(255, 208, 0);
+          display: block;
+          margin: 20px 0 20px 0;
+          padding: 20px 20px 20px 20px;
+        "
+      >
+        <img src="./qrcode.png" alt="Header" style="display: block;" />
+      </td>
+    </tr>
+    <tr>
+      <td
+        align="center"
+        bgcolor="#aa0d00"
+        height="60px"
+        style="color: #ffffff; display: block; padding: 5px 5px 5px 20px;"
+      >
+        <h3 style="font-family: 'Lato', sans-serif;">
+          © 2020 Space Travel Inc.
+        </h3>
+      </td>
+    </tr>
+      </table>
       `,
     };
 
