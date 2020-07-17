@@ -44,14 +44,10 @@ router.post("/", async (req, res, next) => {
       userId: userId,
     });
 
-    // first Name
-    // last Name
-    // add bookingId
-    // User
-    // Travel Class
-    // Origin = Earth
-    // Destination = dynamic
-    // Date of departure
+    const getBookingId = await Booking.findOne({
+      where: { id: newBooking.id },
+    });
+    console.log("WHAT IS MY BOOKINGID?");
 
     //nodemailer
     const transporter = nodemailer.createTransport({
@@ -68,11 +64,40 @@ router.post("/", async (req, res, next) => {
       from: `${AUTH_USER}`,
       to: `${email}`,
       subject: `Space Travel inc. payment confirmation and boarding pass`,
-      text: `Dear valued customer, thank you for choosing Space Travel inc as your off-planet spaceline.
-      ...`,
-      html: `<h2>Dear valued customer, thank you for choosing Space Travel inc as your off-planet spaceline</h2>
-      <p>...</p>`,
+      text: `BOOKING CONFIRMATION:Dear valued customer, thank you for choosing Space Travel inc as your off-planet spaceline.
+
+      This is your booking confirmation for ${planetId} and your BOARDINGPASS.
+
+      Your flight to ${planetId} departs on ${departingDate}.
+
+      You have chosen for ${travelClass}, should you wish to upgrade your seating please visit Seat-Upgrade
+      
+      IMPORTANT:Please bring a printed copy of this document to the check-in as it functions as your BOARDING PASS.
+      
+      
+      `,
+      html: `<h3>BOOKING CONFIRMATION:</h3> <h2>Dear valued customer, thank you for choosing Space Travel inc as your off-planet spaceline</h2>
+      <p>
+      This is your booking confirmation for ${planetId} and your <Strong>Boardingpass</Strong>.
+      <br/>
+      Your flight to ${planetId} departs on ${departingDate}.
+      <br/>
+      You have chosen for ${travelClass} seating, should you wish to upgrade - please visit <a>Upgrade-Seating</a>
+      <br/>
+      <h3>IMPORTANT:</h3><p>Please bring a printed copy of this document to the check-in as it functions as youre <strong>Boarding Pass</strong></p>
+      
+      </p>`,
     };
+
+    // first Name
+    // last Name
+    // add bookingId
+    // User
+    // Travel Class
+    // Origin = Earth
+    // Destination = dynamic
+    // Date of departure
+
     console.log(
       "WAHT IS CONFIRMATIONANDTICKETEMAIL",
       confirmationAndticketEmailTemplate
