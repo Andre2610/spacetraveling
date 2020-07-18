@@ -2,6 +2,7 @@ const { Router } = require("express");
 const { toJWT, emailToken, validatingEmail } = require("../auth/jwt");
 const authMiddleware = require("../auth/middleware");
 const nodemailer = require("nodemailer");
+const nodeoutlook = require("nodejs-nodemailer-outlook");
 const bcrypt = require("bcrypt");
 const {
   SALT_ROUNDS,
@@ -70,9 +71,7 @@ router.post("/signup", async (req, res) => {
       .status(400)
       .send("Please provide an email, password, your first and last name");
   }
-  console.log("my credentials", req.body.signUpcredentials);
   if (isAdmin && isAdminCode !== ISADMINCODE) {
-    console.log("got in here?");
     return res.status(400).json("Not allowed to create an admin account");
   }
 
@@ -90,8 +89,7 @@ router.post("/signup", async (req, res) => {
     const url = `${BACKEND_API}/auth/confirmation/${eToken}`;
 
     const transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
+      service: "outlook",
       auth: {
         user: `${AUTH_USER}`,
         pass: `${AUTH_PASS}`,
@@ -110,29 +108,26 @@ router.post("/signup", async (req, res) => {
 
     transporter.sendMail(confirmationEmailTemplate, function (err, data) {
       if (err) {
-        console.log("Error Occurs");
+        console.log("Error Occurs", err);
       } else {
         console.log("Email sent!!!");
       }
     });
 
-    res.status(201).json("it worked");
+    res.status(201).json(newUser);
   } catch (error) {
     if (error.name === "SequelizeUniqueConstraintError") {
       return res
         .status(400)
         .send({ message: "There is an existing account with this email" });
     }
-
-    return res.status(400).send({ message: "Something went wrong, sorry" });
+    return res.status(400).send({ message: error });
   }
 });
 
 router.get("/confirmation/:token", async (req, res) => {
   try {
-    console.log("do I get here?");
     const { id } = validatingEmail(req.params.token);
-    console.log("my verified data", id);
     const updatedUser = await User.update(
       { verified: true },
       { where: { id } }
