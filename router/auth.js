@@ -102,8 +102,52 @@ router.post("/signup", async (req, res) => {
       subject: `Hello, ${firstName}`, // Subject line
       text: `Thank you for registering an account with space travel agency. 
       Please confirm your email by clicking the following link:${url}`, // plain text body
-      html: `<h2>Thank you for registering an account with space travel agency.</h2>
-      <p>Please confirm your email by clicking the following link:<a href=${url}>${url}</a></p>`, // html body
+      html: `      
+      <div 
+        style=
+        padding: 5px 5px 5px 5px;
+        line-spacing: 2rem;
+        border="0";
+        width="600";
+      >
+        <img src="https://cdn.discordapp.com/attachments/718425463059513374/733635534924021760/bannermail.png" width="100%"/>
+      
+        <h2>Dear ${firstName}, thank you for choosing Space Travel inc as your off-planet spaceline</h2>
+        <h3>IMPORTANT:</h3>
+        <p>Please confirm your email by clicking the following link:<a href=${url}>${url}</a></p>
+      </div>
+
+      <table
+        style="
+          padding: 5px 5px 5px 5px;
+          border: 2px solid #aa0d00;
+          border-radius: 5px;
+        "
+        align="center"
+        border="0"
+        cellpadding="0"
+        cellspacing="0"
+        width="600"
+      >
+
+        <tr>
+          <td align="left" bgcolor="#ffffff" style="padding: 0 0 0 0;">
+            <img src="https://cdn.discordapp.com/attachments/718425463059513374/733652425617178634/header.png" alt="Header" style="display: block;" />
+          </td>
+        </tr>
+          <td
+            align="center"
+            bgcolor="#aa0d00"
+            height="60px"
+            style="color: #ffffff; display: block; padding: 5px 5px 5px 20px;"
+          >
+            <h3 style="font-family: 'Lato', sans-serif;">
+              © 2020 Space Travel Inc.
+            </h3>
+          </td>
+        </tr>
+      </table>
+      `, // html body
     };
 
     transporter.sendMail(confirmationEmailTemplate, function (err, data) {
