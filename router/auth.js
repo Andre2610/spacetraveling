@@ -2,6 +2,7 @@ const { Router } = require("express");
 const { toJWT, emailToken, validatingEmail } = require("../auth/jwt");
 const authMiddleware = require("../auth/middleware");
 const nodemailer = require("nodemailer");
+const nodeoutlook = require("nodejs-nodemailer-outlook");
 const bcrypt = require("bcrypt");
 const {
   SALT_ROUNDS,
@@ -70,9 +71,7 @@ router.post("/signup", async (req, res) => {
       .status(400)
       .send("Please provide an email, password, your first and last name");
   }
-  console.log("my credentials", req.body.signUpcredentials);
   if (isAdmin && isAdminCode !== ISADMINCODE) {
-    console.log("got in here?");
     return res.status(400).json("Not allowed to create an admin account");
   }
 
@@ -87,11 +86,11 @@ router.post("/signup", async (req, res) => {
     });
 
     const eToken = emailToken({ id: newUser.id });
+    // created encrypted email link
     const url = `${BACKEND_API}/auth/confirmation/${eToken}`;
 
     const transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
+      service: "outlook",
       auth: {
         user: `${AUTH_USER}`,
         pass: `${AUTH_PASS}`,
@@ -104,35 +103,76 @@ router.post("/signup", async (req, res) => {
       subject: `Hello, ${firstName}`, // Subject line
       text: `Thank you for registering an account with space travel agency. 
       Please confirm your email by clicking the following link:${url}`, // plain text body
-      html: `<h2>Thank you for registering an account with space travel agency.</h2>
-      <p>Please confirm your email by clicking the following link:<a href=${url}>${url}</a></p>`, // html body
+      html: `      
+      <div 
+        style=
+        padding: 5px 5px 5px 5px;
+        line-spacing: 2rem;
+        border="0";
+        width="600";
+      >
+        <img src="https://cdn.discordapp.com/attachments/718425463059513374/733635534924021760/bannermail.png" width="100%"/>
+      
+        <h2>Dear ${firstName}, thank you for choosing Space Travel inc as your off-planet spaceline</h2>
+        <h3>IMPORTANT:</h3>
+        <p>Please confirm your email by clicking the following link:<a href=${url}>${url}</a></p>
+      </div>
+
+      <table
+        style="
+          padding: 5px 5px 5px 5px;
+          border: 2px solid #aa0d00;
+          border-radius: 5px;
+        "
+        align="center"
+        border="0"
+        cellpadding="0"
+        cellspacing="0"
+        width="600"
+      >
+
+        <tr>
+          <td align="left" bgcolor="#ffffff" style="padding: 0 0 0 0;">
+            <img src="https://cdn.discordapp.com/attachments/718425463059513374/733652425617178634/header.png" alt="Header" style="display: block;" />
+          </td>
+        </tr>
+          <td
+            align="center"
+            bgcolor="#aa0d00"
+            height="60px"
+            style="color: #ffffff; display: block; padding: 5px 5px 5px 20px;"
+          >
+            <h3 style="font-family: 'Lato', sans-serif;">
+              © 2020 Space Travel Inc.
+            </h3>
+          </td>
+        </tr>
+      </table>
+      `, // html body
     };
 
     transporter.sendMail(confirmationEmailTemplate, function (err, data) {
       if (err) {
-        console.log("Error Occurs");
+        console.log("Error Occurs", err);
       } else {
         console.log("Email sent!!!");
       }
     });
 
-    res.status(201).json("it worked");
+    res.status(201).json(newUser);
   } catch (error) {
     if (error.name === "SequelizeUniqueConstraintError") {
       return res
         .status(400)
         .send({ message: "There is an existing account with this email" });
     }
-
-    return res.status(400).send({ message: "Something went wrong, sorry" });
+    return res.status(400).send({ message: error });
   }
 });
 
 router.get("/confirmation/:token", async (req, res) => {
   try {
-    console.log("do I get here?");
     const { id } = validatingEmail(req.params.token);
-    console.log("my verified data", id);
     const updatedUser = await User.update(
       { verified: true },
       { where: { id } }

@@ -50,13 +50,13 @@ router.post("/", async (req, res, next) => {
 
     //nodemailer
     const transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
+      service: "outlook",
       auth: {
         user: `${AUTH_USER}`,
         pass: `${AUTH_PASS}`,
       },
     });
+
     const confirmationAndticketEmailTemplate = {
       from: `${AUTH_USER}`,
       to: `${email}`,
@@ -191,10 +191,6 @@ router.post("/", async (req, res, next) => {
       `,
     };
 
-    console.log(
-      "WAHT IS CONFIRMATIONANDTICKETEMAIL",
-      confirmationAndticketEmailTemplate
-    );
     transporter.sendMail(confirmationAndticketEmailTemplate, function (
       err,
       data
