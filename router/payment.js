@@ -191,10 +191,6 @@ router.post("/", async (req, res, next) => {
       `,
     };
 
-    console.log(
-      "WAHT IS CONFIRMATIONANDTICKETEMAIL",
-      confirmationAndticketEmailTemplate
-    );
     transporter.sendMail(confirmationAndticketEmailTemplate, function (
       err,
       data
