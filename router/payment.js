@@ -50,13 +50,18 @@ router.post("/", async (req, res, next) => {
 
     //nodemailer
     const transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
+      host: "smtp.office365.com",
+      secureConnection: false,
       port: 587,
       auth: {
         user: `${AUTH_USER}`,
         pass: `${AUTH_PASS}`,
       },
+      tls: {
+        ciphers: "SSLv3",
+      },
     });
+
     const confirmationAndticketEmailTemplate = {
       from: `${AUTH_USER}`,
       to: `${email}`,
