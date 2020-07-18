@@ -86,6 +86,7 @@ router.post("/signup", async (req, res) => {
     });
 
     const eToken = emailToken({ id: newUser.id });
+    // created encrypted email link
     const url = `${BACKEND_API}/auth/confirmation/${eToken}`;
 
     const transporter = nodemailer.createTransport({
