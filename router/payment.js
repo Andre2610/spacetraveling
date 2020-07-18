@@ -50,15 +50,10 @@ router.post("/", async (req, res, next) => {
 
     //nodemailer
     const transporter = nodemailer.createTransport({
-      host: "smtp.office365.com",
-      secureConnection: false,
-      port: 587,
+      service: "outlook",
       auth: {
         user: `${AUTH_USER}`,
         pass: `${AUTH_PASS}`,
-      },
-      tls: {
-        ciphers: "SSLv3",
       },
     });
 
