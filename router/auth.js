@@ -2,12 +2,11 @@ const { Router } = require("express");
 const { toJWT, emailToken, validatingEmail } = require("../auth/jwt");
 const authMiddleware = require("../auth/middleware");
 const nodemailer = require("nodemailer");
-const nodeoutlook = require("nodejs-nodemailer-outlook");
 const bcrypt = require("bcrypt");
 const {
   SALT_ROUNDS,
-  API_URL,
   BACKEND_API,
+  API_URL,
   AUTH_USER,
   AUTH_PASS,
   ISADMINCODE,
@@ -182,7 +181,7 @@ router.get("/confirmation/:token", async (req, res) => {
     res.send("error");
   }
 
-  return res.redirect("http://localhost:3000");
+  return res.redirect(API_URL);
 });
 
 module.exports = router;
